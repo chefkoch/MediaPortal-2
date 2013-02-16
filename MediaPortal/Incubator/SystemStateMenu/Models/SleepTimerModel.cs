@@ -391,10 +391,16 @@ namespace MediaPortal.Plugins.SystemStateMenu.Models
 
     void NotificationTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
-      IDialogManager dialogManager = ServiceRegistration.Get<IDialogManager>();
-      string header = LocalizationHelper.Translate(Consts.RES_SLEEP_TIMER_NOTIFY_HEADER);
-      string text = Consts.GetTimerMessage(CurrentSleepAction, SleepTime);
-      dialogManager.ShowDialog(header, text, DialogType.OkDialog, false, DialogButtonType.Ok);
+      // only show message box if sleep time has not been passed already
+      // could happen by suspending manually before sleep time has been passed
+      if (SleepTime > DateTime.Now)
+      {
+        IDialogManager dialogManager = ServiceRegistration.Get<IDialogManager>();
+        string header = LocalizationHelper.Translate(Consts.RES_SLEEP_TIMER_NOTIFY_HEADER);
+        string text = Consts.GetTimerMessage(CurrentSleepAction, SleepTime);
+        // todo: chefkoch, 2013-02-16: replace dialog by notify
+        dialogManager.ShowDialog(header, text, DialogType.OkDialog, false, DialogButtonType.Ok);
+      }
       SetupNotificationTimer();
     }
 
