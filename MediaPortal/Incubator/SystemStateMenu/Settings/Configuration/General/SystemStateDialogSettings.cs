@@ -26,7 +26,7 @@ using MediaPortal.Common.Configuration.ConfigurationClasses;
 
 namespace MediaPortal.Plugins.SystemStateMenu.Settings.Configuration.General
 {
-  public class ShutdownDialogSetting : CustomConfigSetting
+  public class SystemStateDialogSettings : CustomConfigSetting
   {
   }
 }
