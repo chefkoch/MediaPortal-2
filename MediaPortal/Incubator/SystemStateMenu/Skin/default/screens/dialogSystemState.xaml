@@ -20,6 +20,7 @@
 
         <ListView Grid.Column="0"
                   Grid.Row="0"
+                  SetFocusPrio="Default"
                   Style="{ThemeResource MenuListViewStyle}"
                   ItemsSource="{Binding ShutdownItems}">
           <ListView.Resources>

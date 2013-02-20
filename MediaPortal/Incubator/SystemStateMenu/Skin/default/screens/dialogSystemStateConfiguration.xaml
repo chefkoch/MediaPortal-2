@@ -66,6 +66,7 @@
           <Button Name="ButtonCancel"
                   Grid.Column="1"
                   Grid.Row="0"
+                  SetFocusPrio="Default"
                   Style="{ThemeResource DialogButtonStyle}"
                   Content="[System.Cancel]"
                   HorizontalAlignment="Center"
