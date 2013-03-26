@@ -65,6 +65,25 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Libraries\Common\Downloader.cs" />
+    <Compile Include="Libraries\FanartTv\Data\Album.cs" />
+    <Compile Include="Libraries\FanartTv\Data\Artist.cs" />
+    <Compile Include="Libraries\FanartTv\Data\ArtistResult.cs" />
+    <Compile Include="Libraries\FanartTv\Data\DiscImage.cs" />
+    <Compile Include="Libraries\FanartTv\Data\Image.cs" />
+    <Compile Include="Libraries\FanartTv\Data\LocalizedImage.cs" />
+    <Compile Include="Libraries\FanartTv\Data\Movie.cs" />
+    <Compile Include="Libraries\FanartTv\Data\MovieDiscImage.cs" />
+    <Compile Include="Libraries\FanartTv\Data\MovieResult.cs" />
+    <Compile Include="Libraries\FanartTv\Data\SeasonImage.cs" />
+    <Compile Include="Libraries\FanartTv\Data\Series.cs" />
+    <Compile Include="Libraries\FanartTv\Data\SeriesResult.cs" />
+    <Compile Include="Libraries\FanartTv\FanartTvApi.cs" />
+    <Compile Include="Libraries\FanartTv\ImageCategory.cs" />
+    <Compile Include="Libraries\FanartTv\Limit.cs" />
+    <Compile Include="Libraries\FanartTv\MovieImageType.cs" />
+    <Compile Include="Libraries\FanartTv\MusicImageType.cs" />
+    <Compile Include="Libraries\FanartTv\SeriesImageType.cs" />
+    <Compile Include="Libraries\FanartTv\Sort.cs" />
     <Compile Include="Libraries\GeoLocation\Data\GoogleResult.cs" />
     <Compile Include="Libraries\GeoLocation\Data\ReverseGeoCodeResult.cs" />
     <Compile Include="Libraries\GeoLocation\IGeolocationLookup.cs" />

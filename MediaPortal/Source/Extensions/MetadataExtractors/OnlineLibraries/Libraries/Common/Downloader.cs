@@ -121,5 +121,18 @@ namespace MediaPortal.Extensions.OnlineLibraries.Libraries.Common
         fs.Close();
       }
     }
+
+    /// <summary>
+    /// Writes an object to cache file.
+    /// </summary>
+    internal void WriteCache<TE>(TE objectToWrite, string cachePath)
+    {
+      if (string.IsNullOrEmpty(cachePath))
+        return;
+
+      string json = JsonConvert.SerializeObject(objectToWrite);
+
+      WriteCache(cachePath, json);
+    }
   }
 }
