@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+  <PropertyGroup>
+    <PluginContent>$(SolutionDir)..\Packages\OnlineVideos.MediaPortal2.1.6.1\PluginContent\</PluginContent>
+    <PluginDestination>$(SolutionDir)..\Bin\$(SolutionName)\$(OutDir)Plugins\$(ProjectName)\</PluginDestination>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PluginFiles Include="$(PluginContent)OnlineVideos.dll" />
+    <PluginFiles Include="$(PluginContent)OnlineVideos.MediaPortal2.dll" />
+    <PluginFiles Include="$(PluginContent)plugin.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <LanguageFiles Include="$(PluginContent)Language\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SkinFiles Include="$(PluginContent)Skin\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MPUrlSourceSplitterFiles Include="$(PluginContent)MPUrlSourceSplitter\**\*.*" />
+  </ItemGroup>
+
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginDestination)" />
+    <Copy SourceFiles="@(LanguageFiles)" DestinationFolder="$(PluginDestination)Language\" />
+    <Copy SourceFiles="@(SkinFiles)"
+          DestinationFiles="@(SkinFiles->'$(PluginDestination)Skin\%(RecursiveDir)%(Filename)%(Extension)')" />
+    
+    <Copy SourceFiles="@(MPUrlSourceSplitterFiles)"
+          DestinationFiles="@(MPUrlSourceSplitterFiles->'$(PluginDestination)MPUrlSourceSplitter\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+</Project>
