@@ -2,25 +2,26 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
 
   <PropertyGroup>
+    <PluginContent>$(SolutionDir)..\Packages\OnlineVideos.MediaPortal2.1.6.1\PluginContent\</PluginContent>
     <PluginDestination>$(SolutionDir)..\Bin\$(SolutionName)\$(OutDir)Plugins\$(ProjectName)\</PluginDestination>
   </PropertyGroup>
 
   <ItemGroup>
-    <PluginFiles Include="$(ProjectDir)OnlineVideos.dll" />
-    <PluginFiles Include="$(ProjectDir)OnlineVideos.MediaPortal2.dll" />
-    <PluginFiles Include="$(ProjectDir)plugin.xml" />
+    <PluginFiles Include="$(PluginContent)OnlineVideos.dll" />
+    <PluginFiles Include="$(PluginContent)OnlineVideos.MediaPortal2.dll" />
+    <PluginFiles Include="$(PluginContent)plugin.xml" />
   </ItemGroup>
 
   <ItemGroup>
-    <LanguageFiles Include="$(ProjectDir)Language\*.*" />
+    <LanguageFiles Include="$(PluginContent)Language\*.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <SkinFiles Include="$(ProjectDir)Skin\**\*.*" />
+    <SkinFiles Include="$(PluginContent)Skin\**\*.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <MPUrlSourceSplitterFiles Include="$(ProjectDir)MPUrlSourceSplitter\**\*.*" />
+    <MPUrlSourceSplitterFiles Include="$(PluginContent)MPUrlSourceSplitter\**\*.*" />
   </ItemGroup>
 
   <Target Name="AfterBuild">
