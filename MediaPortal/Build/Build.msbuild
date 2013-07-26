@@ -35,6 +35,9 @@
     <BuildSetup
       Condition="$(BuildSetup) != 'false' AND $(OneStepOnly) != 'true'">true</BuildSetup>
 
+    <BuildPackages
+      Condition="$(BuildPackages) != 'false' AND $(OneStepOnly) != 'true'">true</BuildPackages>
+
   </PropertyGroup>
 
   <!--
@@ -61,6 +64,10 @@
     <ProjectsToBuild Include="$(ProjectRoot)\Setup\MP2-Setup.sln" Condition="$(BuildSetup) == 'true'" />
   </ItemGroup>
 
+  <!-- This item group holds the MP2 NuGet packages that should acutally being built. -->
+  <ItemGroup>
+    <PackagesToBuild Include="$(ProjectRoot)\**\*.nuspec" />
+  </ItemGroup>
 
   <!-- Targets -->
   <Import Project="$(MSBuildProjectDirectory)\RestorePackages.targets" />
@@ -76,6 +83,7 @@
     <Message Text="BuildServer          = $(BuildServer)"/>
     <Message Text="BuildServiceMonitor  = $(BuildServiceMonitor)"/>
     <Message Text="BuildSetup           = $(BuildSetup)"/>
+    <Message Text="BuildPackages        = $(BuildPackages)"/>
     <Message Text="..:: BUILD CONFIGURATION END ::.."/>
   </Target>
 
@@ -88,6 +96,10 @@
     <MSBuild Projects="@(ProjectsToBuild)"
              Properties="Configuration=$(Configuration);Platform=$(Platform)"
              Targets="Rebuild" />
+
+    <!-- Build NuGet packages -->
+    <Exec Command='"$(NuGetExePath)" pack "%(PackagesToBuild.FullPath)" -OutputDirectory "$(PackageOutputDir)" -Version "$(PackageVersion)"'
+          Condition="$(BuildPackages) == 'true'" />
   </Target>
 
 </Project>
