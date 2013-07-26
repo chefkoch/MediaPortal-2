@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
 
-  <Import Project="$(MSBuildThisFileDirectory)Dokan\Dokan.targets" Condition="Exists('$(MSBuildThisFileDirectory)Dokan\Dokan.targets')" />
+  <PropertyGroup>
+    <ProjectRoot Condition="$(ProjectRoot) == ''">$(MSBuildProjectDirectory)\..\..</ProjectRoot>
+  </PropertyGroup>
+  <Import Project="$(ProjectRoot)\Build\Build.props" />
+  <Import Project="$(ProjectRoot)\Build\Build.tasks" />
 
   <UsingTask TaskName="HeatDirectory"
     AssemblyFile="$(WixToolPath)WixUtilExtension.dll" />
 
+  <PropertyGroup>
+    <DokanInstallerExePath>$(MSBuildThisFileDirectory)Dokan\dokaninstall_053.exe</DokanInstallerExePath>
+    <DokanInstallerDownloadUrl>http://install.team-mediaportal.com/dokaninstall_053.exe</DokanInstallerDownloadUrl>
+  </PropertyGroup>
+
   <Target Name="BeforeBuild">
 
-    <MsBuild Targets="_DownloadDokanInstaller" Projects="$(MSBuildThisFileFullPath)" Properties="Configuration=NOT_IMPORTANT" />
+    <DownloadFile DownloadAddress="$(DokanInstallerDownloadUrl)"
+                  OutputFilename="$(DokanInstallerExePath)"
+                  Condition="!Exists('$(DokanInstallerExePath)')" />
 
     <HeatDirectory
       Directory="$(SolutionDir)..\Bin\MP2-Client\bin\x86\Release"
