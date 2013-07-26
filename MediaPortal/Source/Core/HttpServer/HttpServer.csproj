@@ -161,6 +161,7 @@
   <ItemGroup>
     <None Include="httpserver.pfx" />
     <None Include="test.snk" />
+    <None Include="Properties\Package.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

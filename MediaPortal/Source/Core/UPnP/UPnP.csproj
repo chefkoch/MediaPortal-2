@@ -202,5 +202,8 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Package.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

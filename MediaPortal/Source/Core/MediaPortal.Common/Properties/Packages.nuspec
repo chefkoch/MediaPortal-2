@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MediaPortal.Common</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>http://www.team-mediaportal.com/</projectUrl>
+    <iconUrl>http://www.team-mediaportal.com/images/stories/homepageV3/promotional_materials/MP2_Icon_General_1.png</iconUrl>
+    <licenseUrl>http://www.gnu.org/licenses/gpl.html</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>$copyright$</copyright>
+    <summary>Summary: _$description$_ Seems there is a description missing in the DLLs assembly info.</summary>
+    <description>Description: also missing.</description>
+    <dependencies>
+      <dependency id="MediaPortal.HttpServer" />
+      <dependency id="MediaPortal.Utilities" />
+      <dependency id="MediaPortal.UPnP" />
+      <dependency id="Windows7APICodePack-Core" />
+      <dependency id="Windows7APICodePack-Shell" />
+    </dependencies>
+  </metadata>
+</package>
