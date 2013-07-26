@@ -71,6 +71,9 @@
       <AssemblyVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)</AssemblyVersion>
       <AssemblyFileVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion).$(BuildVersion)</AssemblyFileVersion>
       <AssemblyInformationalVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseTagWithSeparator) $(BuildInfo)</AssemblyInformationalVersion>
+      <!-- Nuget does not allow any dots within the pre-release tag
+      <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseTagWithSeparator.Replace('.', ''))</PackageVersion> -->
+      <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion).$(BuildVersion)</PackageVersion>
     </PropertyGroup>
 
     <!-- Define files and content which require updates using regular expressions. -->
@@ -105,6 +108,7 @@
     <Message Text="AssemblyVersion:              $(AssemblyVersion)"/>
     <Message Text="AssemblyFileVersion:          $(AssemblyFileVersion)"/>
     <Message Text="AssemblyInformationalVersion: $(AssemblyInformationalVersion)"/>
+    <Message Text="PackageVersion:               $(PackageVersion)"/>
     <Message Text="..:: ASSEMBLY INFO END ::.."/>
 
     <RegexTransform Items="@(RegexTransform)" />
