@@ -233,5 +233,8 @@
   <ItemGroup>
     <Folder Include="Thumbnails\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="MediaPortal.UI.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
