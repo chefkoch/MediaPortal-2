@@ -98,6 +98,7 @@
              Targets="Rebuild" />
 
     <!-- Build NuGet packages -->
+    <MakeDir Directories="$(PackageOutputDir)"/>
     <Exec Command='"$(NuGetExePath)" pack "%(PackagesToBuild.FullPath)" -OutputDirectory "$(PackageOutputDir)" -Version "$(PackageVersion)"'
           Condition="$(BuildPackages) == 'true'" />
   </Target>
