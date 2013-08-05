@@ -36,7 +36,7 @@
       Condition="$(BuildSetup) != 'false' AND $(OneStepOnly) != 'true'">true</BuildSetup>
 
     <BuildPackages
-      Condition="$(BuildPackages) != 'false' AND $(OneStepOnly) != 'true'">true</BuildPackages>
+      Condition="$(BuildPackages) != 'true'">false</BuildPackages>
 
   </PropertyGroup>
 

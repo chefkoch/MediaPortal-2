@@ -48,6 +48,7 @@
       <MinorVersion>0</MinorVersion>
       <PatchVersion>0</PatchVersion>
       <BuildVersion>0</BuildVersion>
+      <BuildVersion Condition="$(BambooBuildNumber) != ''">$(BambooBuildNumber)</BuildVersion>
 
       <!--
       Change this to set the build quality of the project. Use values like "alpha", "beta", "rc1", "rtm", etc.
@@ -56,10 +57,10 @@
 
       By setting 'AutoBuildQuality' to 'false' from command line it is possible to either
       keep the 'BuildQuality' empty or define a customized one from command line.
+      <BuildQuality>alpha.2</BuildQuality>
       -->
-      <BuildQuality Condition="$(AutoBuildQuality) != 'false'">alpha.2</BuildQuality>
 
-      <BuildInfo Condition="$(BuildVersion) == '0'">Build $(BuildTime) #$(CommitHash)</BuildInfo>
+      <BuildInfo>Build $(BuildTime) #$(CommitHash)</BuildInfo>
       <BuildInfo Condition="$(BuildVersion) != '0'">Build $(BuildVersion) $(BuildTime) #$(CommitHash)</BuildInfo>
     </PropertyGroup>
 
@@ -70,8 +71,9 @@
       <AssemblyVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)</AssemblyVersion>
       <AssemblyFileVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion).$(BuildVersion)</AssemblyFileVersion>
       <AssemblyInformationalVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseTagWithSeparator) $(BuildInfo)</AssemblyInformationalVersion>
-      <!-- Nuget does not allow any dots within the pre-release tag -->
-      <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseTagWithSeparator.Replace('.', ''))</PackageVersion>
+      <!-- Nuget does not allow any dots within the pre-release tag
+      <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseTagWithSeparator.Replace('.', ''))</PackageVersion> -->
+      <PackageVersion>$(MajorVersion).$(MinorVersion).$(PatchVersion).$(BuildVersion)</PackageVersion>
     </PropertyGroup>
 
     <!-- Define files and content which require updates using regular expressions. -->
