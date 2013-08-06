@@ -18,7 +18,8 @@
              TaskName="MSBuild.Community.Tasks.Git.GitBranch"
              />
 
-  <Target Name="UpdateVersion">
+  <Target Name="UpdateVersion"
+          DependsOnTargets="WriteBambooVariables">
 
     <!-- Read environment information into properties. -->
     <GitVersion LocalPath="$(ProjectRoot)">
@@ -47,6 +48,7 @@
       <MinorVersion>0</MinorVersion>
       <PatchVersion>0</PatchVersion>
       <BuildVersion>0</BuildVersion>
+      <BuildVersion Condition="$(BambooBuildNumber) != ''">$(BambooBuildNumber)</BuildVersion>
 
       <!--
       Change this to set the build quality of the project. Use values like "alpha", "beta", "rc1", "rtm", etc.
@@ -106,6 +108,14 @@
     <Message Text="..:: ASSEMBLY INFO END ::.."/>
 
     <RegexTransform Items="@(RegexTransform)" />
+  </Target>
+
+  <Target Name="WriteBambooVariables"
+          Condition="$(BambooBuildNumber) != ''">
+    <Message Text="..:: BAMBOO INFO ::.."/>
+    <Message Text="BambooBuildNumber:            $(BambooBuildNumber)"/>
+    <Message Text="BambooJiraVersion:            $(BambooJiraVersion)"/>
+    <Message Text="..:: BAMBOO INFO END ::.."/>
   </Target>
 
 </Project>
