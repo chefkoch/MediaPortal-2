@@ -1,3 +1,6 @@
 [submodule "MediaPortal/Build/BuildReport"]
 	path = MediaPortal/Build/BuildReport
 	url = https://github.com/MediaPortal/BuildReport.git
+[submodule "MediaPortal/Source/External/BaseClasses"]
+	path = MediaPortal/Source/External/BaseClasses
+	url = git@github.com:chefkoch/BaseClasses.git
