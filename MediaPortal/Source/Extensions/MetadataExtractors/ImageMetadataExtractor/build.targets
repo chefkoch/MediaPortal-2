@@ -11,13 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <References Include="$(TargetDir)FreeImage.dll" />
-    <References Include="$(TargetDir)FreeImageNET.dll" />
+    <Resources Include="$(ProjectDir)Resources\FreeImage.dll" />
+    <Resources Include="$(TargetDir)FreeImageNET.dll" />
   </ItemGroup>
 
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginDestination)" />
-    <Copy SourceFiles="@(References)" DestinationFolder="$(PluginDestination)" />
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(PluginDestination)" />
   </Target>
 
 </Project>

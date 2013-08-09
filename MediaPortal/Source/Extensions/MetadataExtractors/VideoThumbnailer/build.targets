@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <References Include="$(TargetDir)ffmpeg.exe" />
+    <Resources Include="$(ProjectDir)Resources\ffmpeg.exe" />
   </ItemGroup>
 
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(PluginFiles)" DestinationFolder="$(PluginDestination)" />
-    <Copy SourceFiles="@(References)" DestinationFolder="$(PluginDestination)" />
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(PluginDestination)" />
   </Target>
 
 </Project>
