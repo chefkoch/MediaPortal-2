@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <!-- define available features and it's folders, which will be passed to from the Bundle UI over to the MSI -->
+  <?define FeatureList=CLIENT;SERVER?>
+  <?define CLIENT_FolderList=DATA;CONFIG;LOG;PLUGINS?>
+  <?define SERVER_FolderList=DATA;CONFIG;LOG;PLUGINS;DATABASE?>
+
+  <Fragment>
+    <PackageGroup
+      Id="MediaPortal">
+      
+      <!--
+      <?define MsiSource  = "$(var.MP2-Setup.TargetPath)"?>
+      -->
+      <?define MsiSource  = "$(var.MP2Test.TargetPath)"?>
+
+      <!-- MediaPortal 2 msi package -->
+      <MsiPackage
+        Compressed="no"
+        EnableFeatureSelection="yes"
+        SourceFile="$(var.MsiSource)">
+
+        <MsiProperty Name="ADDLOCAL" Value="[Features_AddLocal]"/>
+
+        <?foreach Feature in $(var.FeatureList)?>
+        <MsiProperty Name="INSTALLDIR_$(var.Feature)" Value="[INSTALLDIR_$(var.Feature)]"/>
+        <?endforeach?>
+
+        <?foreach Folder in $(var.CLIENT_FolderList)?>
+        <MsiProperty Name="CLIENT_$(var.Folder)_FOLDER" Value="[CLIENT_$(var.Folder)_FOLDER]"/>
+        <?endforeach?>
+
+        <?foreach Folder in $(var.SERVER_FolderList)?>
+        <MsiProperty Name="SERVER_$(var.Folder)_FOLDER" Value="[SERVER_$(var.Folder)_FOLDER]"/>
+        <?endforeach?>
+
+      </MsiPackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>

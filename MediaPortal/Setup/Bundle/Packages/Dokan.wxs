@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <Fragment>
+    <PackageGroup
+        Id="Dokan">
+
+      <ExePackage
+          Cache="no"
+          Compressed="no"
+          PerMachine="yes"
+          Permanent="yes"
+          Vital="yes"
+          SourceFile="Packages\dokaninstall_053.exe"
+          InstallCommand="/S"
+          DownloadUrl="http://install.team-mediaportal.com/dokaninstall_053.exe"/>
+
+    </PackageGroup>
+  </Fragment>
+</Wix>
