@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:fire="http://schemas.microsoft.com/wix/FirewallExtension">
+
+  <Fragment>
+
+    <?include ..\Includes.wxi ?>
+
+    <!-- Icon -->
+    <Icon Id="Server" SourceFile="$(var.MediaPortal.Server.TargetPath)" />
+
+    <!-- Directory definition -->
+    <DirectoryRef Id="TeamMediaPortal.Folder">
+      <Directory Id="INSTALLDIR_SERVER" Name="MP2-Server" />
+    </DirectoryRef>
+
+    <DirectoryRef Id="TeamMediaPortal.Data.Folder">
+      <Directory Id="SERVER.DATA.FOLDER" Name="MP2-Server">
+        <Component Id="SERVER.DATA.FOLDER" Guid="4C918D8D-9925-49D9-8CC9-0369A32F6221">
+          <CreateFolder/>
+        </Component>
+
+        <Directory Id="SERVER.CONFIG.FOLDER" Name="Config">
+          <Component Id="SERVER.CONFIG.FOLDER" Guid="97054EC5-47F1-4072-ADC3-BB4BF26CF35A">
+            <CreateFolder/>
+          </Component>
+        </Directory>
+        <Directory Id="SERVER.LOG.FOLDER" Name="Log">
+          <Component Id="SERVER.LOG.FOLDER" Guid="4FF03809-8904-43E9-929B-A1397853A77F">
+            <CreateFolder/>
+          </Component>
+        </Directory>
+        <Directory Id="SERVER.DATABASE.FOLDER" Name="Database">
+          <Component Id="SERVER.DATABASE.FOLDER" Guid="A7ABDEB5-0D3F-48B7-A4EA-92B1B5DE6C2A">
+            <CreateFolder/>
+          </Component>
+        </Directory>
+      </Directory>
+    </DirectoryRef>
+
+    <!-- Directory content -->
+    <DirectoryRef Id="INSTALLDIR_SERVER" FileSource="$(var.MediaPortal.Server.TargetDir)">
+      
+      <Component Id="Server.Registry.InstallDir" Guid="AB85C3C6-423A-484D-93B6-60A24057E683">
+        <RegistryKey Root="HKLM"
+                     Key="Software\[Manufacturer]\[ProductName]"
+                     Action="createAndRemoveOnUninstall">
+          <RegistryValue Type="string" Name="INSTALLDIR_SERVER" Value="[INSTALLDIR_SERVER]"/>
+        </RegistryKey>
+        <CreateFolder />
+      </Component>
+
+      <!-- Albert, 2012-03-04: If we would let the user change the custom paths, we could write them here to the Paths.xml file.
+                                 We would need to call our custom action PrepareXmlPathVariables(). -->
+      <!--
+      <Directory Id="S__Defaults" Name="Defaults">
+        <Component Id="S__Defaults" Guid="9894844B-C89B-4F8D-A905-751B836A5DF3">
+          <File Id="S__Paths.xml" Name="Paths.xml" KeyPath="yes" Checksum="yes" />
+        </Component>
+      </Directory>
+      -->
+
+      <Component Id="Server.exe" Guid="3AF13E59-DC3A-4C6F-A0EB-89462019140C">
+        <File Id="Server.exe" Name="MP2-Server.exe" KeyPath="yes" Checksum="yes"/>
+      </Component>
+
+    </DirectoryRef>
+
+    <!-- Shortcuts -->
+    <DirectoryRef Id="MP2.StartMenu">
+      <Component Id="Server.StartMenu.Shortcut" Guid="6A4D291B-5143-48F5-A277-65DAAE31623F">
+        <Shortcut Id="Server.StartMenu.Shortcut"
+                  Name="!(loc.SC_Server)"
+                  Description="!(loc.SC_Server_Desc)"
+                  Target="[!Server.exe]"
+                  Icon="Server"
+                  WorkingDirectory="INSTALLDIR_SERVER" />
+        <!--
+        Fix ICE 38 by adding a dummy registry key that is the key for this shortcut.
+        http://msdn.microsoft.com/library/en-us/msi/setup/ice38.asp
+        -->
+        <RegistryValue Root="HKCU"
+                       Key="$(var.RegKeyInstall)"
+                       Name="Server.StartMenu.Shortcut"
+                       Type="string"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="Server.Desktop.Shortcut" Guid="751AD25F-D690-4C01-8915-CD5DA4029F8E">
+        <Shortcut Id="Server.Desktop.Shortcut"
+                  Name="!(loc.SC_Server)"
+                  Description="!(loc.SC_Server_Desc)"
+                  Target="[!Server.exe]"
+                  Icon="Server"
+                  WorkingDirectory="INSTALLDIR_SERVER" />
+        <!--
+        Fix ICE 38 by adding a dummy registry key that is the key for this shortcut.
+        http://msdn.microsoft.com/library/en-us/msi/setup/ice38.asp
+        -->
+        <RegistryValue Root="HKCU"
+                       Key="$(var.RegKeyInstall)"
+                       Name="Server.Desktop.Shortcut"
+                       Type="string"
+                       Value="1"
+                       KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Feature -->
+    <Feature Id="Server"
+             Level="1"
+             AllowAdvertise="no"
+             ConfigurableDirectory="INSTALLDIR_SERVER"
+             Title="!(loc.F_Server)"
+             Description="!(loc.F_Server_Desc)">
+
+      <ComponentRef Id="SERVER.DATA.FOLDER" />
+      <ComponentRef Id="SERVER.CONFIG.FOLDER" />
+      <ComponentRef Id="SERVER.LOG.FOLDER" />
+      <ComponentRef Id="SERVER.DATABASE.FOLDER" />
+
+      <ComponentRef Id="Server.exe" />
+      <ComponentRef Id="Server.Desktop.Shortcut" />
+      <ComponentRef Id="Server.StartMenu.Shortcut" />
+      <ComponentRef Id="Server.Registry.InstallDir" />
+    </Feature>
+
+  </Fragment>
+</Wix>

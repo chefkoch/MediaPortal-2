@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?include $(var.SolutionDir)\VersionInfo.wxi?>
+  <!-- This should NEVER be changed ! -->
+  <?define UpgradeCode = "9743129C-FED3-404A-A66E-3C1557BE0178" ?>
+
+  <Product Id="*"
+           Name="MediaPortal 2"
+           Version="$(var.Version)"
+           Manufacturer="$(var.Manufacturer)"
+           Language="!(loc.ProductLanguage)"
+           Codepage="0"
+           UpgradeCode="$(var.UpgradeCode)">
+
+    <Package Id='*'
+             Keywords='Installer'
+             Description='MediaPortal 2 Installer'
+             InstallerVersion='405'
+             SummaryCodepage="!(loc.SummaryCodepage)"
+             Compressed='yes' />
+
+    <PropertyRef Id="UpgradesFile" />
+
+    <?Include .\Includes.wxi?>
+
+    <PropertyRef Id="PropertiesFile" />
+    <PropertyRef Id="AddRemovePropertiesFile" />
+
+    <!--
+    Source media for the installation.
+    Specifies a single cab file to be embedded in the installer's .msi.
+    -->
+    <Media Id="1" Cabinet="MediaPortal2.cab" EmbedCab="yes" CompressionLevel="high" />
+
+    <!-- setting the context to per-machine -->
+    <Property Id="ALLUSERS">1</Property>
+
+    <Icon Id="MediaPortal2Icon" SourceFile="Resources\MP2_Icon_General.ico" />
+
+    <!-- Directories -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="TeamMediaPortal.Folder" Name="Team MediaPortal">
+          <!-- An empty Component needed to avoid a bug in Windows Installer -->
+          <Component Id="EmptyComponent_WindowsInstallerBugWorkaround" KeyPath="yes" Guid="4D1E4904-0FB1-44B3-82E1-CFE5F01E6AC3"/>
+        </Directory>
+      </Directory>
+
+      <Directory Id="CommonAppDataFolder">
+        <Directory Id="TeamMediaPortal.Data.Folder" Name="Team MediaPortal">
+          <Component Id="TeamMediaPortal.Data.Folder" Guid="F681F96B-A41D-435B-A091-C9BF42179FB5">
+            <CreateFolder>
+              <util:PermissionEx User="Users" GenericAll="yes"/>
+            </CreateFolder>
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="TeamMediaPortal.StartMenu" Name="Team MediaPortal">
+          <Directory Id="MP2.StartMenu" Name="MediaPortal 2" />
+        </Directory>
+      </Directory>
+
+      <Directory Id="DesktopFolder" />
+    </Directory>
+
+    <!-- Shortcuts -->
+    <DirectoryRef Id="TeamMediaPortal.StartMenu">
+      <Component Id="TeamMediaPortal.StartMenu" Guid="EBCECF2A-3330-11E1-BB19-75D94724019B">
+        <RegistryValue Root="HKCU"
+                       Key="Software\Team MediaPortal\MediaPortal 2\Install"
+                       Name="TeamMediaPortal.StartMenu"
+                       Type="string"
+                       Value="1"
+                       KeyPath="yes" />
+        <RemoveFolder Id="Remove.TeamMediaPortal.StartMenu"
+                      On="uninstall"/>
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="MP2.StartMenu">
+      <Component Id="MP2.StartMenu" Guid="DB88BD5D-BD35-402E-ABD5-A8EBB1F0FA42">
+        <Shortcut Id="MP2Uninstall.StartMenu.Shortcut"
+                  Name="!(loc.SC_Uninstall)"
+                  Description="!(loc.SC_Uninstall_Desc)"
+                  Target="[System64Folder]msiexec.exe"
+                  Arguments="/x [ProductCode]" />
+        <!--
+        Fix ICE 38 by adding a dummy registry key that is the key for this shortcut.
+        http://msdn.microsoft.com/library/en-us/msi/setup/ice38.asp
+        -->
+        <!-- todo: why is $(var.RegKeyInstall) not working here? -->
+        <RegistryValue Root="HKCU"
+                       Key="Software\Team MediaPortal\MediaPortal 2\Install"
+                       Name="MP2.StartMenu"
+                       Type="string"
+                       Value="1"
+                       KeyPath="yes" />
+        <RemoveFolder Id="Remove.MP2.StartMenu"
+                      On="uninstall" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Features -->
+    <Feature Id="MediaPortal_2"
+             Level="1"
+             Absent="disallow"
+             AllowAdvertise="no"
+             TypicalDefault="install"
+             InstallDefault="local"
+             Title="!(loc.F_MediaPortal)"
+             Description="!(loc.F_MediaPortal_Desc)">
+
+      <ComponentRef Id="EmptyComponent_WindowsInstallerBugWorkaround"/>
+      <ComponentRef Id="TeamMediaPortal.Data.Folder" />
+      <ComponentRef Id="TeamMediaPortal.StartMenu" />
+      <ComponentRef Id="MP2.StartMenu" />
+    </Feature>
+    <FeatureRef Id="Client" />
+    <FeatureRef Id="Server" />
+
+    <InstallExecuteSequence>
+      <RemoveExistingProducts After="InstallInitialize" />
+      <InstallExecute After="RemoveExistingProducts" />
+    </InstallExecuteSequence>
+
+  </Product>
+</Wix>

@@ -45,6 +45,7 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="MediaPortalBA.cs" />
+    <Compile Include="Models\PackageState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

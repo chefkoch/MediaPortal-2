@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:bal="http://schemas.microsoft.com/wix/BalExtension"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <!-- todo: check what to do with upgrade code, same like MP2.msi? -->
   <!-- for more infos see: http://neilsleightholm.blogspot.de/2012/05/wix-burn-tipstricks.html -->
@@ -10,7 +12,7 @@
   <Bundle UpgradeCode="$(var.UpgradeCode)"
           Name="MediaPortal 2"
           Version="1.0.0.0"
-          Manufacturer=""
+          Manufacturer="Team MediaPortal"
           Copyright="Copyright © 2014, Team MediaPortal"
           IconSourceFile="$(var.SolutionDir)..\Resources\Images\MP2_Icon_General.ico"
           SplashScreenSourceFile="Resources\SplashScreen.bmp"
@@ -40,20 +42,19 @@
   <Fragment>
     <PayloadGroup Id="InstallerPayload">
       <Payload SourceFile="$(var.MediaPortalBA.TargetPath)"/>
-      <Payload Name="BootstrapperCore.config" SourceFile="$(var.MediaPortalBA.TargetDir)MediaPortalBA.BootstrapperCore.config"/>
-      <Payload SourceFile="$(var.jwright.Installer.TargetDir)\BootstrapperCore.config" />
-      <Payload SourceFile="$(var.jwright.Installer.TargetDir)\Microsoft.Deployment.WindowsInstaller.dll" />
+      <Payload SourceFile="$(var.MediaPortalBA.TargetDir)BootstrapperCore.config"/>
+      <Payload SourceFile="$(var.MediaPortalBA.TargetDir)\Microsoft.Deployment.WindowsInstaller.dll" />
     </PayloadGroup>
 
     <PayloadGroup Id ="MediaPortalPayload">
       <Payload SourceFile='Resources\License.htm' />
 
       <!-- Definition to write the default path files to the temp directory and use them as default definition. -->
-      <Payload SourceFile="$(var.SolutionDir)\..\Source\Base\Client\Defaults\Paths.xml" Name="CLIENT_Paths.xml" />
+      <!--<Payload SourceFile="$(var.SolutionDir)\..\Source\Base\Client\Defaults\Paths.xml" Name="CLIENT_Paths.xml" />
       <Payload SourceFile="$(var.SolutionDir)\..\Source\Base\Server\Defaults\Paths.xml" Name="SERVER_Paths.xml" />
 
       <Payload SourceFile='$(var.MediaPortal.Common.TargetPath)' />
-      <Payload SourceFile='$(var.MediaPortal.Utilities.TargetPath)' />
+      <Payload SourceFile='$(var.MediaPortal.Utilities.TargetPath)' />-->
     </PayloadGroup>
   </Fragment>
 

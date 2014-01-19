@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  
+  <!-- Import Build.tasks for commonly used tasks, such as DownloadFile etc. -->
+  <Import Project="$(MSBuildThisFileDirectory)\..\..\Build\Build.tasks" />
+
+  <PropertyGroup>
+
+    <!-- Dokan Installer -->
+    <DokanExePath>$(MSBuildThisFileDirectory)\Packages\dokaninstall_053.exe</DokanExePath>
+    <DokanDownloadUrl>http://install.team-mediaportal.com/dokaninstall_053.exe</DokanDownloadUrl>
+
+    <!-- DirectX Installer -->
+    <!--<DxWebExePath>$(MSBuildThisFileDirectory)\Packages\dxwebsetup.exe</DxWebExePath>
+    <DxWebDownloadUrl>http://install.team-mediaportal.com/dxwebsetup.exe</DxWebDownloadUrl>-->
+
+    <DxRedistExePath>$(MSBuildThisFileDirectory)\Packages\directx_jun2010_redist.exe</DxRedistExePath>
+    <DxRedistDownloadUrl>http://install.team-mediaportal.com/DirectXRedist2010</DxRedistDownloadUrl>
+
+    <!-- VCRedist Installer -->
+    <VcRedistExePath>$(MSBuildThisFileDirectory)\Packages\vcredist_x86.exe</VcRedistExePath>
+    <VcRedistDownloadUrl>http://install.team-mediaportal.com/VcRedist2010</VcRedistDownloadUrl>
+
+  </PropertyGroup>
+
+  <Target Name="BeforeBuild">
+    <DownloadFile DownloadAddress="$(DokanDownloadUrl)" OutputFilename="$(DokanExePath)" Condition="!Exists('$(DokanExePath)')" />
+    <DownloadFile DownloadAddress="$(DxRedistDownloadUrl)" OutputFilename="$(DxRedistExePath)" Condition="!Exists('$(DxRedistExePath)')" />
+    <DownloadFile DownloadAddress="$(VcRedistDownloadUrl)" OutputFilename="$(VcRedistExePath)" Condition="!Exists('$(VcRedistExePath)')" />
+  </Target>
+
+
+  <!--<ItemGroup>
+    <Resources Include="$(ProjectDir)MP2-Setup-Logging.bat"/>
+  </ItemGroup>
+
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(Resources)" DestinationFolder="$(TargetDir)en-us\" />
+  </Target>-->
+
+</Project>
