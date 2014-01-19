@@ -1,4 +1,7 @@
-﻿using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
+﻿using System.IO;
+using System.Linq;
+using System.Xml.Linq;
+using Microsoft.Tools.WindowsInstallerXml.Bootstrapper;
 
 namespace MediaPortal.InstallerUI
 {
@@ -15,5 +18,6 @@ namespace MediaPortal.InstallerUI
     {
       //... do your thing here 
     }
+
   }
 }

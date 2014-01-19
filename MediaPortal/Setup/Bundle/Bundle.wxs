@@ -43,7 +43,7 @@
     <PayloadGroup Id="InstallerPayload">
       <Payload SourceFile="$(var.MediaPortalBA.TargetPath)"/>
       <Payload SourceFile="$(var.MediaPortalBA.TargetDir)BootstrapperCore.config"/>
-      <Payload SourceFile="$(var.MediaPortalBA.TargetDir)\Microsoft.Deployment.WindowsInstaller.dll" />
+      <!--<Payload SourceFile="$(var.MediaPortalBA.TargetDir)\Microsoft.Deployment.WindowsInstaller.dll" />-->
     </PayloadGroup>
 
     <PayloadGroup Id ="MediaPortalPayload">

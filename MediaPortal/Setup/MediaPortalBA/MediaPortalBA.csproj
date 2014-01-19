@@ -44,12 +44,22 @@
     <Compile Include="..\..\Source\Core\MediaPortal.Common\VersionInfo\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Enums\DisplayMode.cs" />
+    <Compile Include="Enums\LaunchAction.cs" />
     <Compile Include="MediaPortalBA.cs" />
-    <Compile Include="Models\PackageState.cs" />
+    <Compile Include="Enums\FeatureState.cs" />
+    <Compile Include="Enums\RelatedOperation.cs" />
+    <Compile Include="Enums\FeatureAction.cs" />
+    <Compile Include="Enums\PackageState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BootstrapperCore.config" />
+    <None Include="BootstrapperCore.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
