@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly : AssemblyTitle("HttpServer")]
-[assembly : AssemblyDescription("")]
+[assembly: AssemblyDescription("todo: Add a description here!!!")]
 [assembly : AssemblyConfiguration("")]
 [assembly : AssemblyCompany("Gauffin Telecom AB")]
 [assembly : AssemblyProduct("HttpServer")]
