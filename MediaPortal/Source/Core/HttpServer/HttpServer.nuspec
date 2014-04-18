@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>MediaPortal.HttpServer</id>
-    <version>$version$</version>
+    <version>0.0.0</version>
     <authors>Gauffin Telecom AB</authors>
     <owners>Team MediaPortal</owners>
     <projectUrl>http://www.team-mediaportal.com/</projectUrl>
