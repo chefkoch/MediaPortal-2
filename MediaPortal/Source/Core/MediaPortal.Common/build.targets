@@ -2,6 +2,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
 
   <PropertyGroup>
+    <SolutionName Condition="'$(SolutionName)' == '*Undefined*' ">NuGetPackages</SolutionName>
     <AppDestination>$(SolutionDir)..\Bin\$(SolutionName)\$(OutDir)</AppDestination>
   </PropertyGroup>
 
